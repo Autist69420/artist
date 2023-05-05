@@ -77,7 +77,13 @@ local function check_furnace(self, name)
     end
   end
 
-  if output then self._items:insert(name, 3, output) end
+  if output then
+    if name:match("^techreborn:electric_furnace") then
+      self._items:insert(name, 2, output)
+    else
+      self._items:insert(name, 3, output)
+    end
+  end
 end
 
 function Furnaces:initialise(context)
