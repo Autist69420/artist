@@ -34,7 +34,12 @@ local function check_furnace(self, name)
   local contents = furnace.remote.list()
   if not contents then return end
 
-  local input, fuel, output = contents[1], contents[2], contents[3]
+  local input, fuel, output
+  if name:match("^techreborn:electric_furnace") then
+    input, fuel, output = contents[1], {count = 999}, contents[3]
+  else
+    input, fuel, output = contents[1], contents[2], contents[3]
+  end
 
   -- Flip between the hot and cold sets.
   local new_cooking = input and (input.count > 0 or output.count > 0) or false
@@ -170,7 +175,7 @@ end
 
 function Furnaces:enabled(name)
   expect(1, name, "string")
-  return tbl.rs_sides[name] == nil and self._ignored[name] == nil and self._furnace_types[peripheral.getType(name)] ~= nil
+  return tbl.rs_sides[name] == nil and self._ignored[name] == nil and (self._furnace_types[peripheral.getType(name)] or name:match("^techreborn:electric_furnace")) ~= nil
 end
 
 function Furnaces:smelt(hash, count, furnaces)
