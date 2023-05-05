@@ -55,6 +55,7 @@ return function(context, extract_items)
     local function smelt()
       if count_input.value and furnace_input.value ~= nil then
         context:require("artist.items.furnaces"):smelt(item.hash, count_input.value, furnace_input.value or nil)
+        context.mediator:publish("furnaces.change")
       end
       ui:pop()
     end

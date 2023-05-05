@@ -36,7 +36,7 @@ local function check_furnace(self, name)
 
   local input, fuel, output
   if name:match("^techreborn:electric_furnace") then
-    input, fuel, output = contents[1], {count = 999}, contents[3]
+    input, fuel, output = contents[1], {count = 999}, contents[2]
   else
     input, fuel, output = contents[1], contents[2], contents[3]
   end
